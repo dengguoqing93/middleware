@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    consumer:
+      group-id: foo
+    template:
+      default-topic: test
+
+
+  aop:
+    proxy-target-class: true

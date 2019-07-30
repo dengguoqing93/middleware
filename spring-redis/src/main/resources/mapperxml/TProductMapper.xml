@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TProductMapper">
+  <resultMap id="BaseResultMap" type="com.domain.TProduct">
+    <!--@mbg.generated-->
+    <id column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_no" jdbcType="VARCHAR" property="productNo" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_status" jdbcType="SMALLINT" property="productStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    product_id, product_no, product_name, product_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from T_PRODUCT
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from T_PRODUCT
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.domain.TProduct">
+    <!--@mbg.generated-->
+    insert into T_PRODUCT (product_id, product_no, product_name, 
+      product_status)
+    values (#{productId,jdbcType=VARCHAR}, #{productNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productStatus,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.TProduct">
+    <!--@mbg.generated-->
+    insert into T_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productNo != null">
+        product_no,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null">
+        #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.TProduct">
+    <!--@mbg.generated-->
+    update T_PRODUCT
+    <set>
+      <if test="productNo != null">
+        product_no = #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.TProduct">
+    <!--@mbg.generated-->
+    update T_PRODUCT
+    set product_no = #{productNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_status = #{productStatus,jdbcType=SMALLINT}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+</mapper>
