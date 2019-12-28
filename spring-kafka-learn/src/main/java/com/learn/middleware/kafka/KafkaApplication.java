@@ -1,3 +1,4 @@
+/*
 package com.learn.middleware.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -13,12 +14,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+*/
 /**
  * kafka服务启动类
  *
  * @author dengguoqing
  * @date 2019/5/6
- */
+ *//*
+
 @SpringBootApplication
 public class KafkaApplication implements CommandLineRunner {
 
@@ -50,3 +53,4 @@ public class KafkaApplication implements CommandLineRunner {
     }
 
 }
+*/

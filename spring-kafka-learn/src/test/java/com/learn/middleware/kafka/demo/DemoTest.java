@@ -1,7 +1,6 @@
 package com.learn.middleware.kafka.demo;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;
@@ -15,14 +14,10 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
-import org.springframework.kafka.listener.MessageListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
 
 /**
  * kafka案例
@@ -40,21 +35,7 @@ public class DemoTest {
     @Test
     public void testAutoCommit() throws Exception {
         logger.info("Start auto");
-        ContainerProperties containerProps = new ContainerProperties("topic1", "topic2");
-        final CountDownLatch latch = new CountDownLatch(4);
-        containerProps.setMessageListener(new MessageListener<Integer, String>() {
 
-            @Override
-            public void onMessage(ConsumerRecord<Integer, String> message) {
-                logger.info("received: " + message);
-                latch.countDown();
-            }
-
-        });
-        KafkaMessageListenerContainer<Integer, String> container = createContainer(containerProps);
-        container.setBeanName("testAuto");
-        container.start();
-        Thread.sleep(1000); // wait a bit for the container to start
         KafkaTemplate<Integer, String> template = createTemplate();
         template.setDefaultTopic(topic1);
         template.sendDefault(0, "foo");
@@ -62,7 +43,6 @@ public class DemoTest {
         template.sendDefault(0, "baz");
         template.sendDefault(2, "qux");
         template.flush();
-        container.stop();
         logger.info("Stop auto");
 
     }
@@ -85,7 +65,7 @@ public class DemoTest {
 
     private Map<String, Object> consumerProps() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "master:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, group);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
@@ -97,7 +77,7 @@ public class DemoTest {
 
     private Map<String, Object> senderProps() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "master:9092");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         props.put(ProducerConfig.LINGER_MS_CONFIG, 1);

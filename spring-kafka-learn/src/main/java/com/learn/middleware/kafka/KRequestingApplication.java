@@ -1,3 +1,4 @@
+/*
 package com.learn.middleware.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
@@ -14,12 +15,14 @@ import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
 import org.springframework.kafka.requestreply.RequestReplyFuture;
 import org.springframework.kafka.support.SendResult;
 
+*/
 /**
  * kafka测试
  *
  * @author dengguoqing
  * @date 2019/5/14
- */
+ *//*
+
 @SpringBootApplication
 public class KRequestingApplication {
     public static void main(String[] args) {
@@ -67,3 +70,4 @@ public class KRequestingApplication {
         return new NewTopic("kReplies", 10, (short) 2);
     }
 }
+*/

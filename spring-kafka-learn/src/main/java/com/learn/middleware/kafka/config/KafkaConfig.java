@@ -55,9 +55,6 @@ public class KafkaConfig {
     }
 
 
-    public Listener listener() {
-        return new Listener();
-    }
 
 
     /**
